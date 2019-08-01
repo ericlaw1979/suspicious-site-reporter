@@ -62,7 +62,7 @@ Tld.prototype.getTld = function(host, icannOnly) {
   host = host.split('').reverse().join('');
 
   // Check for the earliest match with a valid tld.
-  // It can either be an exact match.
+  // It can either be an exact match...
   var tldCandidate =
       Tld.getLongestMatch_(this.exactPatterns_, host, icannOnly);
   // Or be the suffix of an exact match with an exclude tld.
@@ -76,7 +76,7 @@ Tld.prototype.getTld = function(host, icannOnly) {
       tldCandidate = excludeCandidate;
     }
   }
-  // Or be a tld without dots which allows any preceding string.
+  // ...or be a tld without dots which allows any preceding string.
   var wildcardCandidate =
       Tld.getLongestMatch_(this.wildcardPatterns_, host, icannOnly);
   if (wildcardCandidate.length > 0 &&
@@ -152,7 +152,7 @@ Tld.doParseTrie_ = function(idx, prefix, pattern, trie) {
   // ',' represents a leaf node that is a private public suffix definition.
   // '&' represents an interior node that does not belong to the set of public
   //     suffix definitions.
-  // First process all nodes until we hit either a leave or an interior
+  // First process all nodes until we hit either a leaf or an interior
   // splitting node.
   var c = '\0';
   for (; idx < pattern.length; idx++) {
@@ -172,7 +172,7 @@ Tld.doParseTrie_ = function(idx, prefix, pattern, trie) {
   // Skip the special character.
   idx++;
 
-  // If the current node is a leave node, we can stop here.
+  // If the current node is a leaf node, we can stop here.
   if (c == '?' || c == ',') {
     return idx;
   }
